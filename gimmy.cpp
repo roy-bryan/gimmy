@@ -2,6 +2,10 @@
 #include <math.h>
 #include <bitset>
 
+#include "GimmyHasher.h"
+//#include "RightEndTriplet.cpp"
+#include "GimmyTriplet.h"
+
 using namespace std;
 
 unsigned int gimmy(unsigned int, int);
@@ -16,6 +20,41 @@ unsigned int lastDiv(unsigned int p, unsigned int b, int length);
 unsigned int lastProd(unsigned int a, unsigned int b, int length);
 
 int main(int argc, char *argv[]) {
+	GimmyTriplet gt(4);
+	int v = 1;
+	char c = ' ';
+	
+	while(true){
+		cout << "part: ";
+		cin >> c;
+		cout << "value: ";
+		cin >> v;
+		switch(c){
+			case 'a':
+				gt.setA(v);
+				break;
+			case 'b':
+				gt.setB(v);
+				break;
+			case 'p':
+				gt.setP(v);
+				break;
+			default:
+				continue;
+		}
+		cout << "a: " << gt.getA() << " , ";
+		cout << "b: " << gt.getB() << " , ";
+		cout << "p: " << gt.getP() << endl;
+	}
+	
+	//gt.setA(7);
+	gt.setB(3);
+	gt.setP(9);
+	
+	cout << gt.getA() << " , ";
+	cout << gt.getB() << " , ";
+	cout << gt.getP() << endl;
+	
 	unsigned int inputNumber = atoi(argv[1]);
 	int targetLength = atoi(argv[2]);
 	
