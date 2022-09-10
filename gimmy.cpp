@@ -29,7 +29,7 @@ int main(int argc, char *argv[]) {
 	
 	
 	
-	Gimmy1 gmy(targetLength);
+	Gimmy1<long> gmy(targetLength);
 	
 	cout << gmy.hash(inputNumber) << endl;
 	

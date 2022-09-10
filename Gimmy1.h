@@ -1,16 +1,18 @@
 #include "GimmyTriplet.h"
+
+template<typename T>
 class Gimmy1
 {
 private:
-	GimmyTriplet<int>* triplet;
+	GimmyTriplet<T>* triplet;
 	int outBits;
 	
-	int numberOfBitsUsed(int);
-	int firstUsedBits(int, int);
-	int lastBits(int, int);
-	int generatePart(int, int, int);
+	int numberOfBitsUsed(T);
+	T firstUsedBits(T, int);
+	T lastBits(T, int);
+	T generatePart(T, int, int);
 public:
 	Gimmy1(int outputBits);
 	
-	int hash(int);
+	T hash(T);
 };
