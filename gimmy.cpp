@@ -2,9 +2,9 @@
 #include <math.h>
 #include <bitset>
 
-#include "GimmyHasher.h"
 //#include "RightEndTriplet.cpp"
-#include "GimmyTriplet.h"
+//#include "GimmyTriplet.h"
+#include "Gimmy1.cpp"
 
 using namespace std;
 
@@ -20,6 +20,18 @@ unsigned int lastDiv(unsigned int p, unsigned int b, int length);
 unsigned int lastProd(unsigned int a, unsigned int b, int length);
 
 int main(int argc, char *argv[]) {
+	int inputNumber = atoi(argv[1]);
+	int targetLength = atoi(argv[2]);
+	
+	if(targetLength == 0){ //If no second argument is given, or if it is zero, hash to a 32-bit value
+		targetLength = 30;
+	}
+	
+	Gimmy1 gmy(targetLength);
+	
+	cout << gmy.hash(inputNumber) << endl;
+	
+/*
 	GimmyTriplet gt(4);
 	int v = 1;
 	char c = ' ';
@@ -62,10 +74,10 @@ int main(int argc, char *argv[]) {
 		targetLength = 32;
 	}
 	cout << gimmy(inputNumber, targetLength) << endl;
-	
+	*/
 	return 0;
 }
-
+/*
 unsigned int gimmy(unsigned int inputNumber, int targetLength){
 	int length = numberOfBitsUsed(inputNumber); //Number of bits in input number
 	int lengthBitP = length & 1; //If the length is odd, set p's length bit to 1 and vise versa
@@ -164,3 +176,4 @@ unsigned int lastProd(unsigned int a, unsigned int b, int length){ //Appends a 1
 	
 	return lastBits((unsigned int)product, length); //Return only the requested number of bits from the product
 }
+*/
