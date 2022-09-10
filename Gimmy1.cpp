@@ -5,7 +5,7 @@
 
 Gimmy1::Gimmy1(int outputBits){
 	outBits = outputBits;
-	triplet = new GimmyTriplet(outputBits);
+	triplet = new GimmyTriplet<int>(outputBits);
 }
 
 int Gimmy1::hash(int inputNumber){

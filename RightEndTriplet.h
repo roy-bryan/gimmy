@@ -1,29 +1,30 @@
+template<typename T>
 class RightEndTriplet
 {
 private:
-	int a = 1; //First multiplicand
-	int b = 1; //Second multiplicand
-	int p = 1; //Product
-	int* volatilityQueue[3]; //Pointers to fields, showing which one should be overwritten first
+	T a = 1; //First multiplicand
+	T b = 1; //Second multiplicand
+	T p = 1; //Product
+	T* volatilityQueue[3]; //Pointers to fields, showing which one should be overwritten first
 	
 	int numBits; //Number of bits to track
 	
-	void setLeastVolatile(int*); //Moves pointed field to least volatile spot
+	void setLeastVolatile(T*); //Moves pointed field to least volatile spot
 	void recalculateMostVolatile(); //Multiplies or divides the two most recent fields and sets most volatile field
 	
-	int multRightEnd(int, int, int len); //Multiplies numbers and returns right end of product
-	int divRightEnd(int prod, int mult, int len); //Divides and returns right end of other multiplicand
+	T multRightEnd(T, T, int len); //Multiplies numbers and returns right end of product
+	T divRightEnd(T prod, T mult, int len); //Divides and returns right end of other multiplicand
 	
-	int rightEnd(int, int len); //Returns right end of number
-	int setBit(int, int bitLocation); //Returns the input number with the specified bit set to 1
+	T rightEnd(T, int len); //Returns right end of number
+	T setBit(T, int bitLocation); //Returns the input number with the specified bit set to 1
 public:
 	RightEndTriplet(); //Default constructor
 	RightEndTriplet(int); //Constructor
 	
-	int getA(){ return a; }; //Getter for a
-	void setA(int); //Setter for a
-	int getB(){ return b; }; //Getter for b
-	void setB(int); //Setter for b
-	int getP(){ return p; }; //Getter for p
-	void setP(int); //Setter for p
+	T getA(){ return a; }; //Getter for a
+	void setA(T); //Setter for a
+	T getB(){ return b; }; //Getter for b
+	void setB(T); //Setter for b
+	T getP(){ return p; }; //Getter for p
+	void setP(T); //Setter for p
 };

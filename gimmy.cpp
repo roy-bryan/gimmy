@@ -27,6 +27,8 @@ int main(int argc, char *argv[]) {
 		targetLength = 30;
 	}
 	
+	
+	
 	Gimmy1 gmy(targetLength);
 	
 	cout << gmy.hash(inputNumber) << endl;

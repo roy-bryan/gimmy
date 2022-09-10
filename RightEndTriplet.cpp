@@ -5,11 +5,13 @@
 
 #include "RightEndTriplet.h"
 
-RightEndTriplet::RightEndTriplet(){ //Default constructor
+template<typename T>
+RightEndTriplet<T>::RightEndTriplet(){ //Default constructor
 	RightEndTriplet(32);
 }
 
-RightEndTriplet::RightEndTriplet(int n){ //Constructor
+template<typename T>
+RightEndTriplet<T>::RightEndTriplet(int n){ //Constructor
 	numBits = n; //Set the number of bits to the specified value
 	
 	volatilityQueue[0] = &a;
@@ -17,7 +19,8 @@ RightEndTriplet::RightEndTriplet(int n){ //Constructor
 	volatilityQueue[2] = &p;
 }
 
-void RightEndTriplet::setA(int n){ //Setter for a
+template<typename T>
+void RightEndTriplet<T>::setA(T n){ //Setter for a
 	a = rightEnd(n, numBits); //Assign a to the value of n
 	
 	setLeastVolatile(&a);
@@ -25,7 +28,8 @@ void RightEndTriplet::setA(int n){ //Setter for a
 	recalculateMostVolatile();
 }
 
-void RightEndTriplet::setB(int n){ //Setter for b
+template<typename T>
+void RightEndTriplet<T>::setB(T n){ //Setter for b
 	b = rightEnd(n, numBits); //Assign b to the value of n
 	
 	setLeastVolatile(&b);
@@ -33,7 +37,8 @@ void RightEndTriplet::setB(int n){ //Setter for b
 	recalculateMostVolatile();
 }
 
-void RightEndTriplet::setP(int n){ //Setter for p
+template<typename T>
+void RightEndTriplet<T>::setP(T n){ //Setter for p
 	p = rightEnd(n, numBits); //Assign a to the value of n
 	
 	setLeastVolatile(&p);
@@ -41,7 +46,8 @@ void RightEndTriplet::setP(int n){ //Setter for p
 	recalculateMostVolatile();
 }
 
-void RightEndTriplet::setLeastVolatile(int* field){ //Moves specified field to least volatile spot in queue
+template<typename T>
+void RightEndTriplet<T>::setLeastVolatile(T* field){ //Moves specified field to least volatile spot in queue
 	if(volatilityQueue[0] == field){ //Check if field is "zero"th value in the queue
 		volatilityQueue[0] = volatilityQueue[1]; //Shift value down
 		volatilityQueue[1] = volatilityQueue[2]; //Shift value down
@@ -53,7 +59,8 @@ void RightEndTriplet::setLeastVolatile(int* field){ //Moves specified field to l
 	}
 }
 
-void RightEndTriplet::recalculateMostVolatile(){ //Multiplies or divides the two most recent fields and sets most volatile field
+template<typename T>
+void RightEndTriplet<T>::recalculateMostVolatile(){ //Multiplies or divides the two most recent fields and sets most volatile field
 	if(volatilityQueue[0] == &a)
 		a = divRightEnd(p, b, numBits);
 		
@@ -64,15 +71,18 @@ void RightEndTriplet::recalculateMostVolatile(){ //Multiplies or divides the two
 		p = multRightEnd(a, b, numBits);
 }
 
-int RightEndTriplet::rightEnd(int num, int len){ //Returns the right end of a number
+template<typename T>
+T RightEndTriplet<T>::rightEnd(T num, int len){ //Returns the right end of a number
 	return num % (int) std::pow(2, len); //Remove unwanted bits by taking the number modulo a power of two
 }
 
-int RightEndTriplet::multRightEnd(int multA, int multB, int len){ //Returns a specified length of the right end of the product after multiplying two multiplicands
+template<typename T>
+T RightEndTriplet<T>::multRightEnd(T multA, T multB, int len){ //Returns a specified length of the right end of the product after multiplying two multiplicands
 	return rightEnd(multA * multB, len); //Call rightEnd function on the product
 }
 
-int RightEndTriplet::divRightEnd(int prod, int mult, int len){
+template<typename T>
+T RightEndTriplet<T>::divRightEnd(T prod, T mult, int len){
 	if(len <= 0)
 		return 0;
 	
@@ -92,8 +102,9 @@ int RightEndTriplet::divRightEnd(int prod, int mult, int len){
 	return otherMult;
 }
 
-int RightEndTriplet::setBit(int num, int bitLocation){ //Returns the input number with the specified bit set to 1
-	return num | (int) pow(2, bitLocation-1); //OR number with a power of two to set single bit
+template<typename T>
+T RightEndTriplet<T>::setBit(T num, int bitLocation){ //Returns the input number with the specified bit set to 1
+	return num | (T) pow(2, bitLocation-1); //OR number with a power of two to set single bit
 }
 
 #endif

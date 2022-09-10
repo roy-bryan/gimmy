@@ -2,7 +2,7 @@
 class Gimmy1
 {
 private:
-	GimmyTriplet* triplet;
+	GimmyTriplet<int>* triplet;
 	int outBits;
 	
 	int numberOfBitsUsed(int);
