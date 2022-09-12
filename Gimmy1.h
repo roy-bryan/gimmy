@@ -7,12 +7,12 @@ private:
 	GimmyTriplet<T>* triplet;
 	int outBits;
 	
-	int numberOfBitsUsed(T);
-	T firstUsedBits(T, int);
-	T lastBits(T, int);
-	T generatePart(T, int, int);
+	int numberOfBitsUsed(const T&);
+	T firstUsedBits(const T&, int);
+	T lastBits(const T&, int);
+	T generatePart(const T&, int, int);
 public:
 	Gimmy1(int outputBits);
 	
-	T hash(T);
+	T hash(const T&);
 };

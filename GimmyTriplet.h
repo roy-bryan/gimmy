@@ -14,11 +14,11 @@ public:
 	GimmyTriplet(int); //Constructor
 	
 	T getA(){ return triplet->getA() >> 1; }; //Pass through getter for A
-	void setA(T num){ triplet->setA((num << 1) + 1); }; //Pass through setter for A
+	void setA(const T& num){ triplet->setA((num << 1) | 1); }; //Pass through setter for A
 	T getB(){ return triplet->getB() >> 1; }; //Pass through getter for B
-	void setB(T num){ triplet->setB((num << 1) + 1); }; //Pass through setter for B
+	void setB(const T& num){ triplet->setB((num << 1) | 1); }; //Pass through setter for B
 	T getP(){ return triplet->getP() >> 1; }; //Pass through getter for P
-	void setP(T num){ triplet->setP((num << 1) + 1); }; //Pass through setter for P
+	void setP(const T& num){ triplet->setP((num << 1) | 1); }; //Pass through setter for P
 };
 
 template<typename T>

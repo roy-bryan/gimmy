@@ -10,7 +10,7 @@ Gimmy1<T>::Gimmy1(int outputBits){
 }
 
 template<typename T>
-T Gimmy1<T>::hash(T inputNumber){
+T Gimmy1<T>::hash(const T& inputNumber){
 	int length = numberOfBitsUsed(inputNumber); //Number of bits in input number
 	int lengthBitP = length & 1; //If the length is odd, set p's length bit to 1 and vise versa
 	lengthBitP = lengthBitP << 1; //The length bit will be the second to last bit, so it should be shifted left
@@ -35,7 +35,7 @@ T Gimmy1<T>::hash(T inputNumber){
 }
 
 template<typename T>
-int Gimmy1<T>::numberOfBitsUsed(T num){ //Takes a 32-bit number and returns the number of bits that would remain if all leading zeros were removed
+int Gimmy1<T>::numberOfBitsUsed(const T& num){ //Takes a 32-bit number and returns the number of bits that would remain if all leading zeros were removed
 	int length = 0; //Initialize length to zero
 	
 	while (num >= pow(2, length)) { //For each power of two that the number is greater than, increment length by 1
@@ -46,7 +46,7 @@ int Gimmy1<T>::numberOfBitsUsed(T num){ //Takes a 32-bit number and returns the 
 }
 
 template<typename T>
-T Gimmy1<T>::firstUsedBits(T x, int length){ //Returns a number with only the first n bits of x (not counting leading zeros)
+T Gimmy1<T>::firstUsedBits(const T& x, int length){ //Returns a number with only the first n bits of x (not counting leading zeros)
 	int totalLength = numberOfBitsUsed(x); //Find total length without leading zeros
 	
 	if(length >= totalLength || length < 0) return x; //Filter out cases where n is greater than the total number of bits available or when n is negative
@@ -55,14 +55,12 @@ T Gimmy1<T>::firstUsedBits(T x, int length){ //Returns a number with only the fi
 }
 
 template<typename T>
-T Gimmy1<T>::lastBits(T x, int n){ //Returns a number with only the last n bits of x
-	if(n == 32) return x; //2^32 is too big to be stored in an integer, but we can just return the input number
-	
+T Gimmy1<T>::lastBits(const T& x, int n){ //Returns a number with only the last n bits of x
 	return x % (T)pow(2,n); //Remove unwanted bits by taking num modulus a power of two
 }
 
 template<typename T>
-T Gimmy1<T>::generatePart(T x, int xLength, int targetLength){ //Generates either b or p from x, leaving the second to last bit blank (0)
+T Gimmy1<T>::generatePart(const T& x, int xLength, int targetLength){ //Generates either b or p from x, leaving the second to last bit blank (0)
 	T part; //Value to be returned
 	
 	//Handle edge cases with default values
@@ -74,7 +72,7 @@ T Gimmy1<T>::generatePart(T x, int xLength, int targetLength){ //Generates eithe
 	
 	for (int i = 0; i < xLength; i++) { //Iterate through x
 		int bit = temp & 1; //Current bit
-		parity = parity xor bit; //Flip parity bit if the current bit is a one
+		parity = parity ^ bit; //Flip parity bit if the current bit is a one
 		temp = temp >> 1; //Shift temp to get ready for the next bit
 	}
 	
@@ -89,7 +87,7 @@ T Gimmy1<T>::generatePart(T x, int xLength, int targetLength){ //Generates eithe
 	}
 	part = part & -4; //Zero the last 2 bits to make room for the length bit and parity bit
 	
-	part = part + parity; //Add the parity bit to the end
+	part = part | parity; //Add the parity bit to the end
 	
 	return part; //Return the number
 }

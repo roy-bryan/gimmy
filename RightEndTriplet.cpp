@@ -20,7 +20,7 @@ RightEndTriplet<T>::RightEndTriplet(int n){ //Constructor
 }
 
 template<typename T>
-void RightEndTriplet<T>::setA(T n){ //Setter for a
+void RightEndTriplet<T>::setA(const T& n){ //Setter for a
 	a = rightEnd(n, numBits); //Assign a to the value of n
 	
 	setLeastVolatile(&a);
@@ -29,7 +29,7 @@ void RightEndTriplet<T>::setA(T n){ //Setter for a
 }
 
 template<typename T>
-void RightEndTriplet<T>::setB(T n){ //Setter for b
+void RightEndTriplet<T>::setB(const T& n){ //Setter for b
 	b = rightEnd(n, numBits); //Assign b to the value of n
 	
 	setLeastVolatile(&b);
@@ -38,7 +38,7 @@ void RightEndTriplet<T>::setB(T n){ //Setter for b
 }
 
 template<typename T>
-void RightEndTriplet<T>::setP(T n){ //Setter for p
+void RightEndTriplet<T>::setP(const T& n){ //Setter for p
 	p = rightEnd(n, numBits); //Assign a to the value of n
 	
 	setLeastVolatile(&p);
@@ -72,27 +72,34 @@ void RightEndTriplet<T>::recalculateMostVolatile(){ //Multiplies or divides the 
 }
 
 template<typename T>
-T RightEndTriplet<T>::rightEnd(T num, int len){ //Returns the right end of a number
-	return num % (int) std::pow(2, len); //Remove unwanted bits by taking the number modulo a power of two
+T RightEndTriplet<T>::powerOfTwo(int exp){
+	T one = 1;
+	return one << exp;
 }
 
 template<typename T>
-T RightEndTriplet<T>::multRightEnd(T multA, T multB, int len){ //Returns a specified length of the right end of the product after multiplying two multiplicands
+T RightEndTriplet<T>::rightEnd(const T& num, int len){ //Returns the right end of a number
+	T mask = powerOfTwo(len) - 1; //Create bit mask by taking a power of two minus one
+	return num & mask; //Remove unwanted bits by ANDing the number with the bit mask
+}
+
+template<typename T>
+T RightEndTriplet<T>::multRightEnd(const T& multA, const T& multB, int len){ //Returns a specified length of the right end of the product after multiplying two multiplicands
 	return rightEnd(multA * multB, len); //Call rightEnd function on the product
 }
 
 template<typename T>
-T RightEndTriplet<T>::divRightEnd(T prod, T mult, int len){
+T RightEndTriplet<T>::divRightEnd(const T& prod, const T& mult, int len){
 	if(len <= 0)
 		return 0;
 	
-	if(prod % 2 == 0)
+	if(prod & 1 == 0)
 		throw "Attempted to divide right ends with an even product";
 	
-	if(mult % 2 == 0)
+	if(mult & 1 == 0)
 		throw "Attempted to divide right ends with an even multiplicand";
 	
-	int otherMult = 1; //Unknown multiplicand
+	T otherMult = 1; //Unknown multiplicand
 	
 	for(int i=1; i<=len; i++){ //Iterate through bits in right end
 		if(multRightEnd(mult, otherMult, i) != rightEnd(prod, i)) //Check if triplet equation is satisfied to the i'th bit
@@ -103,8 +110,8 @@ T RightEndTriplet<T>::divRightEnd(T prod, T mult, int len){
 }
 
 template<typename T>
-T RightEndTriplet<T>::setBit(T num, int bitLocation){ //Returns the input number with the specified bit set to 1
-	return num | (T) pow(2, bitLocation-1); //OR number with a power of two to set single bit
+T RightEndTriplet<T>::setBit(const T& num, int bitLocation){ //Returns the input number with the specified bit set to 1
+	return num | powerOfTwo(bitLocation-1);//(T) pow(2, bitLocation-1); //OR number with a power of two to set single bit
 }
 
 #endif
