@@ -59,7 +59,7 @@ Below is a demonstration of the gimmy algorithm being used to hash the number 75
 | Step | Input | b | p | a |
 |------|------:|--:|--:|--:|
 | Split Input | 1001011 | 1001 | 1011 | |
-| Append Length Bit | 1001010 | 1001-0 | 1011-1 | |
+| Append Length Bit | 1001011 | 1001-0 | 1011-1 | |
 | Append Parity Bit | | **1001**-0-0 | **1011**-1-1 | |
 | Append 1 to Convert<br/> To Possible Prime | | 100100-1 | 101111-1 | |
 | Calculate <br/> a = p &div;&div; b | | 1001001 | 1011111 | 1100111 |

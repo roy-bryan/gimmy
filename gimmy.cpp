@@ -7,17 +7,6 @@
 
 using namespace std;
 
-unsigned int gimmy(unsigned int, int);
-
-int numberOfBitsUsed(unsigned int);
-unsigned int firstUsedBits(unsigned int, int);
-unsigned int lastBits(unsigned int, int);
-
-unsigned int generatePart(unsigned int, int, int);
-
-unsigned int lastDiv(unsigned int p, unsigned int b, int length);
-unsigned int lastProd(unsigned int a, unsigned int b, int length);
-
 int main(int argc, char *argv[]) {
 	int inputByte = atoi(argv[1]);
 	int targetLength = atoi(argv[2]);
